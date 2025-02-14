@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash, jsonify, current_app, send_from_directory, send_file
+from flask import Blueprint, render_template, redirect, url_for, request, flash, jsonify, current_app, \
+    send_from_directory, send_file
 from flask_login import current_user, login_required
 from werkzeug.utils import secure_filename
 import os
@@ -10,6 +11,7 @@ from app.models import File, FileRecipient, User, Group, user_groups
 from app.forms import FileUploadForm, GroupForm
 
 bp = Blueprint('routes', __name__)
+
 
 @bp.route('/upload', methods=['GET', 'POST'])
 @login_required
@@ -23,13 +25,27 @@ def upload_file():
         file = File(name=filename, file_path=filename, uploaded_by=current_user, urgency=form.urgency.data)
         db.session.add(file)
         db.session.commit()
-        for recipient_id in form.recipients.data + form.additional_recipients.data:
-            file_recipient = FileRecipient(file_id=file.id, recipient_id=recipient_id)
+
+        # Add recipients from selected groups
+        selected_users = set()
+        if form.groups.data:
+            group_users = User.query.join(user_groups).filter(user_groups.c.group_id.in_(form.groups.data)).all()
+            selected_users.update(group_users)
+
+        # Add additional recipients
+        if form.additional_recipients.data:
+            additional_users = User.query.filter(User.id.in_(form.additional_recipients.data)).all()
+            selected_users.update(additional_users)
+
+        for user in selected_users:
+            file_recipient = FileRecipient(file_id=file.id, recipient_id=user.id)
             db.session.add(file_recipient)
+
         db.session.commit()
         flash('Tài liệu đã được gửi thành công!')
         return redirect(url_for('routes.file_list'))
     return render_template('upload_file.html', form=form)
+
 
 @bp.route('/group_users')
 @login_required
@@ -42,6 +58,7 @@ def group_users():
         return jsonify(users_data)
     return jsonify([])
 
+
 @bp.route('/search_users')
 @login_required
 def search_users():
@@ -52,20 +69,25 @@ def search_users():
         return jsonify(users_data)
     return jsonify([])
 
+
 @bp.route('/')
 @login_required
 def file_list():
     files = File.query.filter_by(uploaded_by=current_user).all()
     return render_template('file_list.html', files=files)
 
+
 @bp.route('/received')
 @login_required
 def received_files():
-    files = FileRecipient.query.filter_by(recipient_id=current_user.id).join(File).order_by(File.uploaded_at.desc()).all()
+    files = FileRecipient.query.filter_by(recipient_id=current_user.id).join(File).order_by(
+        File.uploaded_at.desc()).all()
     unread_files_count = FileRecipient.query.filter_by(recipient_id=current_user.id, is_read=False).count()
     today_files = [file for file in files if file.file.uploaded_at.date() == date.today()]
     unread_files = [file for file in files if not file.is_read]
-    return render_template('received_files.html', files=files, today_files=len(today_files), unread_files=len(unread_files), unread_files_count=unread_files_count)
+    return render_template('received_files.html', files=files, today_files=len(today_files),
+                           unread_files=len(unread_files), unread_files_count=unread_files_count)
+
 
 @bp.route('/download/<int:file_id>')
 @login_required
@@ -76,6 +98,7 @@ def download_file(file_id):
     recipient.read_at = datetime.utcnow()
     db.session.commit()
     return send_from_directory(current_app.config['UPLOAD_FOLDER'], file.file_path, as_attachment=True)
+
 
 @bp.route('/download_all')
 @login_required
@@ -97,6 +120,7 @@ def download_all_files():
 
     memory_file.seek(0)
     return send_file(memory_file, download_name=zip_filename, as_attachment=True)
+
 
 @bp.route('/admin/groups', methods=['GET', 'POST'])
 @login_required
