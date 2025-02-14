@@ -20,7 +20,7 @@ def upload_file():
         filename = secure_filename(form.file.data.filename)
         file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
         form.file.data.save(file_path)
-        file = File(name=filename, file_path=file_path, uploaded_by=current_user, urgency=form.urgency.data)
+        file = File(name=filename, file_path=filename, uploaded_by=current_user, urgency=form.urgency.data)
         db.session.add(file)
         db.session.commit()
         for recipient_id in form.recipients.data + form.additional_recipients.data:

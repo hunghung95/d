@@ -4,20 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9eb5a400-83d2-4966-83ac-57d9323a85d0" name="Changes" comment="d">
-      <change afterPath="$PROJECT_DIR$/app/static/js/upload.js" afterDir="false" />
+    <list default="true" id="9eb5a400-83d2-4966-83ac-57d9323a85d0" name="Changes" comment="edit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/uploads/HDSD.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/uploads/HDSD_USB-AT.doc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/uploads/MI-R3_3.4.3.9-099.trx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/uploads/Settings_MI-R3.CFG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/uploads/list_KM_Lazada.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/uploads/mtd9" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/uploads/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/uploads/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/favicon.ico" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,7 +146,7 @@
       <workItem from="1739504621715" duration="275000" />
       <workItem from="1739504954885" duration="81000" />
       <workItem from="1739507536614" duration="2896000" />
-      <workItem from="1739517454447" duration="492000" />
+      <workItem from="1739517454447" duration="1077000" />
     </task>
     <task id="LOCAL-00001" summary="d">
       <option name="closed" value="true" />
@@ -167,7 +156,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739503829519</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="edit">
+      <option name="closed" value="true" />
+      <created>1739518122104</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1739518122104</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -198,7 +195,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="d" />
-    <option name="LAST_COMMIT_MESSAGE" value="d" />
+    <MESSAGE value="edit" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/D$D.coverage" NAME="D Coverage Results" MODIFIED="1739495800697" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
