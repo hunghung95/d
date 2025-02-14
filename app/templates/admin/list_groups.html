@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Quản lý nhóm</h1>
+    <a href="{{ url_for('admin.add_group') }}" class="btn btn-primary mb-3">Thêm nhóm mới</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên nhóm</th>
+                <th>Người dùng</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for group in groups %}
+            <tr>
+                <td>{{ group.id }}</td>
+                <td>{{ group.name }}</td>
+                <td>
+                    {% for user in group.users %}
+                        {{ user.username }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="{{ url_for('admin.edit_group', group_id=group.id) }}" class="btn btn-secondary">Sửa</a>
+                    <form action="{{ url_for('admin.delete_group', group_id=group.id) }}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Xóa</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

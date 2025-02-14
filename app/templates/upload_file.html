@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card mt-4">
+    <div class="card-header">
+        <h2>Gửi tài liệu</h2>
+    </div>
+    <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.file_type.label(class="form-label") }}
+                {{ form.file_type(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.file.label(class="form-label") }}
+                {{ form.file(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.urgency.label(class="form-label") }}
+                {{ form.urgency(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.groups.label(class="form-label") }}
+                {{ form.groups(class="form-control") }}
+            </div>
+            <div id="users-list" class="form-group">
+                <!-- Danh sách người dùng sẽ được tải động dựa trên nhóm được chọn -->
+            </div>
+            <div class="form-group">
+                <label for="search-user-input">Tìm kiếm người nhận bổ sung</label>
+                <input type="text" id="search-user-input" class="form-control" placeholder="Tìm kiếm người dùng">
+                <div id="search-results" class="list-group mt-2"></div>
+            </div>
+            <div class="form-group">
+                {{ form.additional_recipients.label(class="form-label") }}
+                <div id="additional-recipients-list">
+                    <!-- Danh sách người nhận bổ sung sẽ được thêm tại đây -->
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const groupSelect = document.querySelector('select[name="groups"]');
+        const usersList = document.getElementById('users-list');
+        const searchUserInput = document.getElementById('search-user-input');
+        const searchResults = document.getElementById('search-results');
+        const additionalRecipientsList = document.getElementById('additional-recipients-list');
+
+        groupSelect.addEventListener('change', function() {
+            const selectedGroups = Array.from(groupSelect.selectedOptions).map(option => option.value);
+            if (selectedGroups.length > 0) {
+                fetch(`/group_users?group_ids=${selectedGroups.join(',')}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        usersList.innerHTML = '';
+                        data.forEach(user => {
+                            const userCheckbox = document.createElement('div');
+                            userCheckbox.classList.add('form-check');
+                            userCheckbox.innerHTML = `
+                                <input class="form-check-input" type="checkbox" value="${user.id}" name="recipients" checked>
+                                <label class="form-check-label">${user.username}</label>
+                            `;
+                            usersList.appendChild(userCheckbox);
+                        });
+                    });
+            } else {
+                usersList.innerHTML = '';
+            }
+        });
+
+        searchUserInput.addEventListener('input', function() {
+            const query = searchUserInput.value.trim();
+            if (query.length > 0) {
+                fetch(`/search_users?query=${query}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        searchResults.innerHTML = '';
+                        data.forEach(user => {
+                            const userItem = document.createElement('a');
+                            userItem.classList.add('list-group-item', 'list-group-item-action');
+                            userItem.textContent = user.username;
+                            userItem.href = '#';
+                            userItem.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                const userCheckbox = document.createElement('div');
+                                userCheckbox.classList.add('form-check');
+                                userCheckbox.innerHTML = `
+                                    <input class="form-check-input" type="checkbox" value="${user.id}" name="additional_recipients" checked>
+                                    <label class="form-check-label">${user.username}</label>
+                                `;
+                                additionalRecipientsList.appendChild(userCheckbox);
+                                searchUserInput.value = '';
+                                searchResults.innerHTML = '';
+                            });
+                            searchResults.appendChild(userItem);
+                        });
+                    });
+            } else {
+                searchResults.innerHTML = '';
+            }
+        });
+    });
+</script>
+{% endblock %}

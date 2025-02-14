@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card mt-4">
+    <div class="card-header">
+        <h2>Tài liệu nhận được</h2>
+        <p class="text-danger">Có {{ unread_files_count }} tài liệu chưa nhận</p>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>TT</th>
+                    <th>Độ khẩn</th>
+                    <th>Tên tài liệu</th>
+                    <th>Người gửi</th>
+                    <th>Ngày gửi</th>
+                    <th>Ngày nhận và Trạng thái</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for recipient in files %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ recipient.file.urgency }}</td>
+                    <td>{{ recipient.file.name }}</td>
+                    <td>{{ recipient.file.uploaded_by.username }}</td>
+                    <td>{{ recipient.file.uploaded_at.strftime('%d-%m-%Y %H:%M:%S') }}</td>
+                    <td>
+                        {% if recipient.is_read %}
+                        <span class="badge badge-success">Đã đọc</span>
+                        {% else %}
+                        <span class="badge badge-warning">Chưa đọc</span>
+                        {% endif %}
+                        <br>
+                        {{ recipient.read_at.strftime('%d-%m-%Y %H:%M:%S') if recipient.read_at else '' }}
+                    </td>
+                    <td>
+                        <a href="{{ url_for('routes.download_file', file_id=recipient.file.id) }}" class="btn btn-primary btn-sm">Tải xuống</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('routes.download_all_files') }}" class="btn btn-secondary">Tải xuống tất cả</a>
+    </div>
+</div>
+{% endblock %}
