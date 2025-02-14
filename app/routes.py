@@ -92,7 +92,8 @@ def download_all_files():
     with zipfile.ZipFile(memory_file, 'w') as zf:
         for recipient in files:
             file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], recipient.file.file_path)
-            zf.write(file_path, os.path.basename(file_path))
+            if os.path.exists(file_path):
+                zf.write(file_path, os.path.basename(file_path))
 
     memory_file.seek(0)
     return send_file(memory_file, download_name=zip_filename, as_attachment=True)

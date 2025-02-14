@@ -4,7 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9eb5a400-83d2-4966-83ac-57d9323a85d0" name="Changes" comment="" />
+    <list default="true" id="9eb5a400-83d2-4966-83ac-57d9323a85d0" name="Changes" comment="d">
+      <change afterPath="$PROJECT_DIR$/app/static/js/upload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/uploads/HDSD.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/uploads/HDSD_USB-AT.doc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/uploads/MI-R3_3.4.3.9-099.trx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/uploads/Settings_MI-R3.CFG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/uploads/list_KM_Lazada.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/uploads/mtd9" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/uploads/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/uploads/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/favicon.ico" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,6 +28,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -35,7 +50,9 @@
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2st913aJXVm7C50tHH0TMABSylO" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -53,6 +70,11 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;
+    ]
   }
 }</component>
   <component name="RecentsManager">
@@ -67,7 +89,7 @@
       <recent name="C:\Users\Admin\Desktop\D\app" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Flask server.D">
     <configuration name="D" type="PythonConfigurationType" factoryName="Python">
       <module name="D" />
       <option name="ENV_FILES" value="" />
@@ -89,6 +111,22 @@
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
       <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="D" type="Python.FlaskServer">
+      <module name="D" />
+      <option name="target" value="$PROJECT_DIR$/app/__init__.py" />
+      <option name="targetType" value="PATH" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
       <method v="2" />
     </configuration>
   </component>
@@ -114,12 +152,53 @@
       <workItem from="1739345230141" duration="1223000" />
       <workItem from="1739407465916" duration="13213000" />
       <workItem from="1739434176794" duration="2956000" />
-      <workItem from="1739494494605" duration="8662000" />
+      <workItem from="1739494494605" duration="9139000" />
+      <workItem from="1739504243245" duration="148000" />
+      <workItem from="1739504621715" duration="275000" />
+      <workItem from="1739504954885" duration="81000" />
+      <workItem from="1739507536614" duration="2896000" />
+      <workItem from="1739517454447" duration="492000" />
     </task>
+    <task id="LOCAL-00001" summary="d">
+      <option name="closed" value="true" />
+      <created>1739503829519</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1739503829519</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="vbdt/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="d" />
+    <option name="LAST_COMMIT_MESSAGE" value="d" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/D$D.coverage" NAME="D Coverage Results" MODIFIED="1739495800697" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
