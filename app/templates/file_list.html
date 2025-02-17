@@ -1,31 +1,41 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="card mt-4">
-    <div class="card-header">
-        <h2>Danh sách tài liệu đã gửi</h2>
-    </div>
-    <div class="card-body">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>TT</th>
-                    <th>Tên tài liệu</th>
-                    <th>Độ khẩn</th>
-                    <th>Ngày gửi</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for file in files %}
-                <tr>
-                    <td>{{ loop.index }}</td>
-                    <td>{{ file.name }}</td>
-                    <td>{{ file.urgency }}</td>
-                    <td>{{ file.uploaded_at.strftime('%d-%m-%Y %H:%M:%S') }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+<div class="container mt-4">
+    <h2>Danh sách tài liệu đã gửi</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>TT</th>
+                <th>Độ khẩn</th>
+                <th>Tên tài liệu</th>
+                <th>Ngày gửi</th>
+                <th>Người nhận</th>
+                <th>Ngày nhận</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for file in files %}
+            <tr>
+                <td rowspan="{{ file.recipients|length }}">{{ loop.index }}</td>
+                <td rowspan="{{ file.recipients|length }}">{{ file.urgency }}</td>
+                <td rowspan="{{ file.recipients|length }}">{{ file.name }}</td>
+                <td rowspan="{{ file.recipients|length }}">{{ file.uploaded_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                <td>{{ file.recipients[0].username }}</td>
+                <td>{{ file.recipients[0].read_at.strftime('%Y-%m-%d %H:%M:%S') if file.recipients[0].read_at else 'Chưa nhận' }}</td>
+                <td rowspan="{{ file.recipients|length }}">
+                    <a href="{{ url_for('routes.download_file', file_id=file.id) }}" class="btn btn-primary btn-sm">Tải xuống</a>
+                </td>
+            </tr>
+            {% for recipient in file.recipients[1:] %}
+            <tr>
+                <td>{{ recipient.username }}</td>
+                <td>{{ recipient.read_at.strftime('%Y-%m-%d %H:%M:%S') if recipient.read_at else 'Chưa nhận' }}</td>
+            </tr>
+            {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}
