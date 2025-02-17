@@ -7,12 +7,7 @@
     <list default="true" id="9eb5a400-83d2-4966-83ac-57d9323a85d0" name="Changes" comment="edit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/app.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/css/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/css/admin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/file_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/file_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/manage_groups.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/manage_groups.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/received_files.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/received_files.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +151,7 @@
       <workItem from="1739504954885" duration="81000" />
       <workItem from="1739507536614" duration="2896000" />
       <workItem from="1739517454447" duration="4316000" />
-      <workItem from="1739760151833" duration="6169000" />
+      <workItem from="1739760151833" duration="8251000" />
     </task>
     <task id="LOCAL-00001" summary="d">
       <option name="closed" value="true" />
@@ -198,7 +193,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739764297702</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="edit">
+      <option name="closed" value="true" />
+      <created>1739775697287</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1739775697287</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

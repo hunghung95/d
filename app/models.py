@@ -27,23 +27,23 @@ def load_user(id):
 
 class File(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255))
+    name = db.Column(db.String(255), index=True)
     file_path = db.Column(db.String(255))
-    uploaded_at = db.Column(db.DateTime, default=datetime.utcnow)
-    urgency = db.Column(db.String(20))
+    uploaded_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+    urgency = db.Column(db.String(20), index=True)
     uploaded_by_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     uploaded_by = db.relationship('User', backref='uploaded_files')
 
 class FileRecipient(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    file_id = db.Column(db.Integer, db.ForeignKey('file.id'))
-    recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    is_read = db.Column(db.Boolean, default=False)
+    file_id = db.Column(db.Integer, db.ForeignKey('file.id'), index=True)
+    recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'), index=True)
+    is_read = db.Column(db.Boolean, default=False, index=True)
     read_at = db.Column(db.DateTime, nullable=True)
     file = db.relationship('File', backref='recipients')
     recipient = db.relationship('User', backref='received_files')
 
 class Group(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), unique=True)
+    name = db.Column(db.String(64), unique=True, index=True)
     users = db.relationship('User', secondary=user_groups, back_populates='groups')
