@@ -3,7 +3,15 @@
 {% block content %}
 <div class="container mt-4">
     <h2>Danh sách tài liệu đã gửi</h2>
-    <table class="table table-bordered table-striped">
+    <form method="get" action="{{ url_for('routes.file_list') }}">
+        <div class="input-group mb-3">
+            <input type="text" name="search" class="form-control" placeholder="Tìm kiếm tài liệu..." value="{{ search_query }}">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Tìm kiếm</button>
+            </div>
+        </div>
+    </form>
+    <table class="table table-bordered table-striped table-hover">
         <thead class="thead-dark">
             <tr>
                 <th>TT</th>
@@ -11,31 +19,61 @@
                 <th>Tên tài liệu</th>
                 <th>Ngày gửi</th>
                 <th>Người nhận</th>
-                <th>Ngày nhận</th>
+                <th class="text-primary">Ngày nhận</th>
                 <th>Hành động</th>
             </tr>
         </thead>
         <tbody>
             {% for file in files %}
             <tr>
-                <td rowspan="{{ file.recipients|length }}">{{ loop.index }}</td>
-                <td rowspan="{{ file.recipients|length }}">{{ file.urgency }}</td>
-                <td rowspan="{{ file.recipients|length }}">{{ file.name }}</td>
-                <td rowspan="{{ file.recipients|length }}">{{ file.uploaded_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
-                <td>{{ file.recipients[0].username }}</td>
-                <td>{{ file.recipients[0].read_at.strftime('%Y-%m-%d %H:%M:%S') if file.recipients[0].read_at else 'Chưa nhận' }}</td>
-                <td rowspan="{{ file.recipients|length }}">
+                <td>{{ loop.index + (request.args.get('page', 1, type=int) - 1) * 10 }}</td>
+                <td>{{ file.urgency }}</td>
+                <td>{{ file.name }}</td>
+                <td>{{ file.uploaded_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                <td>
+                    <ul class="list-unstyled">
+                        {% for recipient in file.recipients %}
+                        <li>{{ recipient.username }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>
+                    <ul class="list-unstyled">
+                        {% for recipient in file.recipients %}
+                        <li class="{{ 'text-danger font-weight-bold' if not recipient.read_at else 'text-success font-weight-bold' }}">
+                            {{ recipient.read_at.strftime('%Y-%m-%d %H:%M:%S') if recipient.read_at else 'Chưa nhận' }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>
                     <a href="{{ url_for('routes.download_file', file_id=file.id) }}" class="btn btn-primary btn-sm">Tải xuống</a>
                 </td>
             </tr>
-            {% for recipient in file.recipients[1:] %}
-            <tr>
-                <td>{{ recipient.username }}</td>
-                <td>{{ recipient.read_at.strftime('%Y-%m-%d %H:%M:%S') if recipient.read_at else 'Chưa nhận' }}</td>
-            </tr>
-            {% endfor %}
             {% endfor %}
         </tbody>
     </table>
+    <nav>
+        <ul class="pagination">
+            {% if prev_url %}
+            <li class="page-item">
+                <a class="page-link" href="{{ prev_url }}">Trước</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#">Trước</a>
+            </li>
+            {% endif %}
+            {% if next_url %}
+            <li class="page-item">
+                <a class="page-link" href="{{ next_url }}">Sau</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#">Sau</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
 </div>
 {% endblock %}

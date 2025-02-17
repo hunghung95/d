@@ -78,9 +78,17 @@ def search_users():
 @bp.route('/')
 @login_required
 def file_list():
-    files = File.query.filter_by(uploaded_by=current_user).all()
+    search_query = request.args.get('search', '')
+    page = request.args.get('page', 1, type=int)
+    per_page = 10
+
+    files_query = File.query.filter(File.uploaded_by == current_user)
+    if search_query:
+        files_query = files_query.filter(File.name.ilike(f'%{search_query}%'))
+    files = files_query.paginate(page, per_page, False)
+
     file_data = []
-    for file in files:
+    for file in files.items:
         recipients = FileRecipient.query.filter_by(file_id=file.id).all()
         recipient_list = [{'username': recipient.recipient.username, 'read_at': recipient.read_at} for recipient in
                           recipients]
@@ -91,7 +99,12 @@ def file_list():
             'uploaded_at': file.uploaded_at,
             'recipients': recipient_list
         })
-    return render_template('file_list.html', files=file_data)
+
+    next_url = url_for('routes.file_list', page=files.next_num, search=search_query) if files.has_next else None
+    prev_url = url_for('routes.file_list', page=files.prev_num, search=search_query) if files.has_prev else None
+
+    return render_template('file_list.html', files=file_data, search_query=search_query, next_url=next_url,
+                           prev_url=prev_url)
 
 
 @bp.route('/received')

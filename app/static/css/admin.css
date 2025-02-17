@@ -31,3 +31,16 @@ body {
 .badge-warning {
     background-color: #ffc107;
 }
+
+.sidebar {
+    height: 100vh;
+    position: fixed;
+}
+
+.nav-link {
+    color: #ffffff;
+}
+
+.nav-link:hover {
+    color: #ffc107;
+}
