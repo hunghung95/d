@@ -21,8 +21,12 @@
                 {{ form.urgency(class="form-control") }}
             </div>
             <div class="form-group">
-                {{ form.groups.label(class="form-label") }}
-                {{ form.groups(class="form-control") }}
+                <label for="group-search">Chọn nhóm người nhận</label>
+                <select id="group-search" class="form-control" multiple>
+                    {% for group in form.groups.choices %}
+                    <option value="{{ group[0] }}">{{ group[1] }}</option>
+                    {% endfor %}
+                </select>
             </div>
             <div id="users-list" class="form-group">
                 <!-- Danh sách người dùng sẽ được tải động dựa trên nhóm được chọn -->
@@ -47,14 +51,14 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const groupSelect = document.querySelector('select[name="groups"]');
+        const groupSearch = document.getElementById('group-search');
         const usersList = document.getElementById('users-list');
         const searchUserInput = document.getElementById('search-user-input');
         const searchResults = document.getElementById('search-results');
         const additionalRecipientsList = document.getElementById('additional-recipients-list');
 
-        groupSelect.addEventListener('change', function() {
-            const selectedGroups = Array.from(groupSelect.selectedOptions).map(option => option.value);
+        groupSearch.addEventListener('change', function() {
+            const selectedGroups = Array.from(groupSearch.selectedOptions).map(option => option.value);
             if (selectedGroups.length > 0) {
                 fetch(`/group_users?group_ids=${selectedGroups.join(',')}`)
                     .then(response => response.json())
