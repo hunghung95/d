@@ -26,13 +26,11 @@ class FileUploadForm(FlaskForm):
     file = FileField('Chọn tệp', validators=[DataRequired()])
     urgency = SelectField('Độ khẩn', choices=[('Thường', 'Thường'), ('Hỏa tốc', 'Hỏa tốc')], default='Thường', validators=[DataRequired()])
     groups = SelectMultipleField('Chọn nhóm', coerce=int)
-    additional_recipients = SelectMultipleField('Người nhận bổ sung', coerce=int)
     submit = SubmitField('Gửi tài liệu')
 
     def __init__(self, *args, **kwargs):
         super(FileUploadForm, self).__init__(*args, **kwargs)
         self.groups.choices = [(group.id, group.name) for group in Group.query.all()]
-        self.additional_recipients.choices = [(user.id, user.username) for user in User.query.all()]
 
 class GroupForm(FlaskForm):
     name = StringField('Tên nhóm', validators=[DataRequired()])

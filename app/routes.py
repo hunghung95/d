@@ -37,11 +37,6 @@ def upload_file():
             group_users = User.query.join(user_groups).filter(user_groups.c.group_id.in_(form.groups.data)).all()
             selected_users.update(group_users)
 
-        # Add additional recipients
-        if form.additional_recipients.data:
-            additional_users = User.query.filter(User.id.in_(form.additional_recipients.data)).all()
-            selected_users.update(additional_users)
-
         for user in selected_users:
             file_recipient = FileRecipient(file_id=file.id, recipient_id=user.id)
             db.session.add(file_recipient)
@@ -59,17 +54,6 @@ def group_users():
     if group_ids:
         group_ids = [int(id) for id in group_ids.split(',')]
         users = User.query.join(user_groups).filter(user_groups.c.group_id.in_(group_ids), User.is_admin == False).all()
-        users_data = [{'id': user.id, 'username': user.username} for user in users]
-        return jsonify(users_data)
-    return jsonify([])
-
-
-@bp.route('/search_users')
-@login_required
-def search_users():
-    query = request.args.get('query')
-    if query:
-        users = User.query.filter(User.username.ilike(f'%{query}%')).all()
         users_data = [{'id': user.id, 'username': user.username} for user in users]
         return jsonify(users_data)
     return jsonify([])
